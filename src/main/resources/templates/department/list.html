@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>部署一覧</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 60%;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f5f5f5;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .action-links a {
+            margin-right: 8px;
+        }
+
+        .top-link {
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .footer-link {
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .delete-link {
+            color: #dc3545;
+            /* 赤 */
+        }
+
+        .delete-link:hover {
+            color: #a71d2a;
+            text-decoration: underline;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>部署一覧</h1>
+
+    <p class="top-link">
+        <a th:href="@{/departments/new}">＋ 新規部署登録</a>
+    </p>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>部署名</th>
+            <th>操作</th>
+        </tr>
+
+        <tr th:each="dept : ${departments}">
+            <td th:text="${dept.id}"></td>
+            <td th:text="${dept.departmentName}"></td>
+            <td class="action-links">
+                <a th:href="@{/departments/edit/{id}(id=${dept.id})}">編集</a>
+                <a href="javascript:void(0);" class="delete-link" th:onclick="|confirmDelete(${dept.id})|">
+                    削除
+                </a>
+
+            </td>
+        </tr>
+    </table>
+
+    <p class="footer-link">
+        <a th:href="@{/dashboard}">ダッシュボードに戻る</a>
+    </p>
+
+    <script>
+        function confirmDelete(departmentId) {
+            if (confirm('この部署を削除してもよろしいですか？')) {
+                window.location.href = '/departments/delete/' + departmentId;
+            }
+        }
+    </script>
+
+</body>
+
+</html>
