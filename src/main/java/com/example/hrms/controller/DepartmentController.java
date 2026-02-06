@@ -22,10 +22,11 @@ public class DepartmentController {
         return "department/list";
     }
 
-    @PostMapping("/departments/delete/{id}")
-    public String delete(@PathVariable Long id, RedirectAttributes ra) {
-        departmentService.delete(id);
-        ra.addFlashAttribute("message", "部署情報を削除しました");
-        return "redirect:/departments";
-    }
+    @GetMapping("/departments/delete/{id}")
+public String delete(@PathVariable Long id, RedirectAttributes ra) {
+    departmentService.delete(id);
+    ra.addFlashAttribute("message", "部署情報を削除しました");
+    return "redirect:/departments";
+}
+
 }
