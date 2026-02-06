@@ -13,8 +13,11 @@ public class Department {
     @Column(name = "department_name")
     private String departmentName;
 
-    @Column(name = "deleted_flg")
-    private Boolean deletedFlg;
+    @Column(name = "deleted_flg", nullable = false)
+private Boolean deletedFlg = false;
+
+
+    
 
     public Long getId() {
         return id;
