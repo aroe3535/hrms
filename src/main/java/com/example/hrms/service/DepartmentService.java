@@ -7,7 +7,12 @@ import org.springframework.stereotype.Service;
 import com.example.hrms.entity.Department;
 import com.example.hrms.repository.DepartmentRepository;
 
+import jakarta.transaction.Transactional;
+
+
+
 @Service
+@Transactional
 public class DepartmentService {
 
     private final DepartmentRepository repository;
@@ -24,10 +29,10 @@ public class DepartmentService {
         repository.save(department);
     }
 
+    
     public void delete(Long id) {
         Department dept = repository.findById(id).orElseThrow();
         dept.setDeletedFlg(true);
-        repository.save(dept);
     }
 }
 
