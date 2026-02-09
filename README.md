@@ -64,16 +64,15 @@ CRUD 処理、画面遷移、バリデーション、エラーハンドリング
 
 ## ER 図（簡易）
 
-論理削除や監査を想定し、業務アプリケーションで一般的なカラム構成としています。
+| カラム名 | 説明 |
+|------|------|
+| id | 主キー |
+| department_code | 部署コード（ユニーク） |
+| department_name | 部署名 |
+| deleted_flg | 論理削除フラグ |
+| created_at | 作成日時 |
+| updated_at | 更新日時 |
 
-Department
-
-id (PK)
-department_code (UK)
-department_name
-deleted_flg
-created_at
-updated_at
 
 
 ※ 今回は部署管理に焦点を当て、シンプルな構成としています。
