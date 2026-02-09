@@ -35,19 +35,16 @@ public String delete(@PathVariable Long id, RedirectAttributes ra) {
 }
 
 @GetMapping("/departments/new")
-public String newDepartment() {
+public String newDepartment(Model model) {
+    model.addAttribute("department", new Department());
     return "departments/new";
 }
 
-@PostMapping("/departments/create")
-public String createDepartment(
-        @RequestParam String departmentName) {
-
-    Department dept = new Department();
-    dept.setDepartmentName(departmentName);
-    departmentRepository.save(dept);
-
+@PostMapping("/departments")
+public String createDepartment(@ModelAttribute Department department) {
+    departmentRepository.save(department);
     return "redirect:/departments";
 }
+
 
 }

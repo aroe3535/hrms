@@ -1,151 +1,78 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
-    <title>部署一覧</title>
+    <title>新規部署登録</title>
 
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 40px;
             background-color: #f8f9fa;
+            padding: 40px;
+        }
+
+        .form-card {
+            width: 420px;
+            margin: auto;
+            padding: 24px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         h1 {
             margin-bottom: 20px;
         }
 
-        /* ===== テーブル ===== */
-        table {
-            border-collapse: collapse;
+        label {
+            font-weight: bold;
+        }
+
+        input {
             width: 100%;
-            background-color: #fff;
-            margin-top: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            /* 影 */
-        }
-
-        th,
-        td {
-            border: 1px solid #ddd;
-            padding: 10px 12px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f1f3f5;
-        }
-
-        tr:nth-child(even) {
-            background-color: #fafafa;
-        }
-
-        /* ===== ボタン共通 ===== */
-        .btn {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 14px;
-            color: #fff;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            border: none;
-        }
-
-        /* 新規登録 */
-        .btn-primary {
-            background-color: #0d6efd;
+            padding: 8px;
+            margin-top: 6px;
             margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
 
-        .btn-primary:hover {
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0d6efd;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
             background-color: #0b5ed7;
         }
 
-        /* 編集 */
-        .btn-edit {
-            background-color: #6c757d;
-        }
-
-        .btn-edit:hover {
-            background-color: #545b62;
-        }
-
-        /* 削除 */
-        .btn-delete {
-            background-color: #dc3545;
-        }
-
-        .btn-delete:hover {
-            background-color: #a71d2a;
-        }
-
-        /* 操作ボタン横並び */
-        .action-links {
-            display: flex;
-            gap: 8px;
-        }
-
-        /* フッター */
-        .footer-link {
-            margin-top: 20px;
-            display: inline-block;
-        }
-
-        .footer-link a {
-            color: #0d6efd;
-            text-decoration: none;
-        }
-
-        .footer-link a:hover {
-            text-decoration: underline;
+        .back {
+            margin-top: 16px;
+            display: block;
+            text-align: center;
         }
     </style>
-
 </head>
 
 <body>
 
-    <h1>部署一覧</h1>
+<div class="form-card">
+    <h1>新規部署登録</h1>
 
-    <a th:href="@{/departments/new}" class="btn btn-primary">
-        ＋ 新規部署登録
-    </a>
+   <form th:action="@{/departments}" th:object="${department}" method="post">
+    <input type="text" th:field="*{departmentName}" required>
+    <button type="submit">登録</button>
+</form>
 
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>部署名</th>
-            <th>操作</th>
-        </tr>
 
-        <tr th:each="dept : ${departments}">
-            <td th:text="${dept.id}"></td>
-            <td th:text="${dept.departmentName}"></td>
-            <td class="action-links">
-                <a th:href="@{/departments/edit/{id}(id=${dept.id})}" class="btn btn-edit">編集</a>
-
-                <a href="javascript:void(0);" class="btn btn-delete" th:onclick="|confirmDelete(${dept.id})|">
-                    削除
-                </a>
-            </td>
-        </tr>
-    </table>
-
-    <p class="footer-link">
-        <a th:href="@{/dashboard}">ダッシュボードに戻る</a>
-    </p>
-
-    <script>
-        function confirmDelete(departmentId) {
-            if (confirm('この部署を削除してもよろしいですか？')) {
-                window.location.href = '/departments/delete/' + departmentId;
-            }
-        }
-    </script>
+    <a th:href="@{/departments}" class="back">← 一覧に戻る</a>
+</div>
 
 </body>
-
 </html>
