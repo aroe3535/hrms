@@ -68,11 +68,15 @@
         }
 
         .btn-delete {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            pointer-events: auto;
+            position: relative;
+            z-index: 1;
         }
+
 
 
         .btn:hover {
@@ -89,7 +93,9 @@
             display: flex;
             justify-content: center;
             gap: 10px;
+            position: relative;
         }
+
 
 
         /* フッター */
@@ -208,10 +214,11 @@
                 <a th:href="@{/departments/edit/{id}(id=${dept.id})}" class="btn btn-edit">
                     編集
                 </a>
-
-
-                <button class="btn btn-delete" th:onclick="|confirmDelete(${dept.id})|" title="削除">
+                
+                <a href="javascript:void(0);" class="btn btn-delete" th:onclick="|confirmDelete(${dept.id})|"
+                    title="削除">
                     🗑
+                </a>
                 </button>
             </td>
         </tr>
