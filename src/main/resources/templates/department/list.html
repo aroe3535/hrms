@@ -212,10 +212,13 @@
                     編集
                 </a>
 
-                <a href="javascript:void(0);" class="btn btn-delete" th:onclick="|confirmDelete(${dept.id})|"
-                    title="削除">
-                    <i class="fa-solid fa-trash"></i>
-                </a>
+                <form th:action="@{/departments/delete/{id}(id=${dept.id})}" method="post"
+                    onsubmit="return confirm('この部署を削除しますか？');">
+
+                    <button type="submit" class="btn btn-delete" title="削除">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </form>
 
 
             </td>
@@ -265,6 +268,12 @@
 
             sortAsc = !sortAsc;
             rowsArray.forEach(row => tbody.appendChild(row));
+        }
+
+        function confirmDelete(id) {
+            if (confirm("この部署を削除しますか？")) {
+                window.location.href = `/departments/delete/${id}`;
+            }
         }
     </script>
 

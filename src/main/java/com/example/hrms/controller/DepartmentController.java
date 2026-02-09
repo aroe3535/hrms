@@ -12,11 +12,6 @@ import com.example.hrms.repository.DepartmentRepository;
 import com.example.hrms.service.DepartmentService;
 import jakarta.validation.Valid;
 
-
-
-
-
-
 @Controller
 public class DepartmentController {
 
@@ -30,40 +25,38 @@ public class DepartmentController {
     }
 
     @GetMapping("/departments")
-public String list(Model model) {
-    model.addAttribute("departments",
-            departmentRepository.findByDeletedFlgFalse());
-    return "department/list";
-}
+    public String list(Model model) {
+        model.addAttribute("departments",
+                departmentRepository.findByDeletedFlgFalse());
+        return "department/list";
+    }
 
+    @PostMapping("/departments/delete/{id}")
+    public String delete(@PathVariable Long id,
+            RedirectAttributes ra) {
 
-    @GetMapping("/departments/delete/{id}")
-public String delete(@PathVariable Long id, RedirectAttributes ra) {
-    departmentService.delete(id);
-    ra.addFlashAttribute("message", "部署情報を削除しました");
-    return "redirect:/departments";
-}
+        departmentService.delete(id);
+        ra.addFlashAttribute("message", "部署を削除しました");
+        return "redirect:/departments";
+    }
 
-@GetMapping("/departments/new")
-public String newDepartment(Model model) {
-    model.addAttribute("department", new Department());
-    return "department/new";
-}
-
-@PostMapping("/departments")
-public String createDepartment(
-        @Valid @ModelAttribute("department") Department department,
-        BindingResult bindingResult) {
-
-    if (bindingResult.hasErrors()) {
+    @GetMapping("/departments/new")
+    public String newDepartment(Model model) {
+        model.addAttribute("department", new Department());
         return "department/new";
     }
 
-    departmentRepository.save(department);
-    return "redirect:/departments";
-}
+    @PostMapping("/departments")
+    public String createDepartment(
+            @Valid @ModelAttribute("department") Department department,
+            BindingResult bindingResult) {
 
+        if (bindingResult.hasErrors()) {
+            return "department/new";
+        }
 
-
+        departmentRepository.save(department);
+        return "redirect:/departments";
+    }
 
 }
