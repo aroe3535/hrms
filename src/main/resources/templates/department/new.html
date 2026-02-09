@@ -70,10 +70,14 @@
         <h1>新規部署登録</h1>
 
         <form th:action="@{/departments}" th:object="${department}" method="post">
-            <label for="departmentName">部署名</label>
-            <input type="text" id="departmentName" th:field="*{departmentName}" required>
-            <div th:if="${#fields.hasErrors('departmentName')}" th:errors="*{departmentName}"
-                style="color:red; margin-bottom: 12px;">
+            <label>
+                部署名 <span style="color:red">*</span>
+            </label>
+            <input type="text" placeholder="例：総務部" required>
+
+
+            <div th:if="${#fields.hasErrors('departmentName')}" style="color:red; margin-top:8px;">
+                <span th:errors="*{departmentName}"></span>
             </div>
 
             <button type="submit">登録</button>

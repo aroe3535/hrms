@@ -31,7 +31,7 @@ public class DepartmentController {
         return "department/list";
     }
 
-    @PostMapping("/departments/delete/{id}")
+    @GetMapping("/departments/delete/{id}")
     public String delete(@PathVariable Long id,
             RedirectAttributes ra) {
 
