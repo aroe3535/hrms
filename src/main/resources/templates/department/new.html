@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>新規部署登録</title>
@@ -17,7 +18,7 @@
             padding: 24px;
             background-color: #fff;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
@@ -62,17 +63,19 @@
 
 <body>
 
-<div class="form-card">
-    <h1>新規部署登録</h1>
+    <div class="form-card">
+        <h1>新規部署登録</h1>
 
-   <form th:action="@{/departments}" th:object="${department}" method="post">
-    <input type="text" th:field="*{departmentName}" required>
-    <button type="submit">登録</button>
-</form>
+        <form th:action="@{/departments}" th:object="${department}" method="post">
+            <label for="departmentName">部署名</label>
+            <input type="text" id="departmentName" th:field="*{departmentName}" required>
 
+            <button type="submit">登録</button>
+        </form>
 
-    <a th:href="@{/departments}" class="back">← 一覧に戻る</a>
-</div>
+        <a th:href="@{/departments}" class="back">← 一覧に戻る</a>
+    </div>
 
 </body>
+
 </html>

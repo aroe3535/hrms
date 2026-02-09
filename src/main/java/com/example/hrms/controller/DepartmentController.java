@@ -37,7 +37,7 @@ public String delete(@PathVariable Long id, RedirectAttributes ra) {
 @GetMapping("/departments/new")
 public String newDepartment(Model model) {
     model.addAttribute("department", new Department());
-    return "departments/new";
+    return "department/new";
 }
 
 @PostMapping("/departments")
