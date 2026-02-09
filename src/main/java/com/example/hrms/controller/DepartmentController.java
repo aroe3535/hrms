@@ -32,7 +32,7 @@ public class DepartmentController {
     @GetMapping("/departments")
 public String list(Model model) {
     model.addAttribute("departments",
-            departmentRepository.findByDeletedFalse());
+            departmentRepository.findByDeletedFlgFalse());
     return "department/list";
 }
 

@@ -17,7 +17,7 @@ public class DepartmentService {
     }
 
     public List<Department> findAll() {
-        return repository.findByDeletedFalse();
+        return repository.findByDeletedFlgFalse();
     }
 
     public void save(Department department) {
