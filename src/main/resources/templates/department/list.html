@@ -9,62 +9,90 @@
         body {
             font-family: Arial, sans-serif;
             margin: 40px;
+            background-color: #f8f9fa;
         }
 
         h1 {
             margin-bottom: 20px;
         }
 
+        /* ===== テーブル ===== */
         table {
             border-collapse: collapse;
             width: 60%;
+            background-color: #fff;
         }
 
-        th,
-        td {
-            border: 1px solid #ccc;
-            padding: 8px 12px;
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px 12px;
             text-align: left;
         }
 
         th {
-            background-color: #f5f5f5;
+            background-color: #f1f3f5;
         }
 
         tr:nth-child(even) {
             background-color: #fafafa;
         }
 
-        a {
-            text-decoration: none;
-            color: #007bff;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .action-links a {
-            margin-right: 8px;
-        }
-
-        .top-link {
-            margin-bottom: 15px;
+        /* ===== ボタン共通 ===== */
+        .btn {
             display: inline-block;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            border: none;
         }
 
+        /* 新規登録 */
+        .btn-primary {
+            background-color: #0d6efd;
+            margin-bottom: 16px;
+        }
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+        }
+
+        /* 編集 */
+        .btn-edit {
+            background-color: #6c757d;
+        }
+        .btn-edit:hover {
+            background-color: #545b62;
+        }
+
+        /* 削除 */
+        .btn-delete {
+            background-color: #dc3545;
+        }
+        .btn-delete:hover {
+            background-color: #a71d2a;
+        }
+
+        /* 操作ボタン横並び */
+        .action-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* フッター */
         .footer-link {
             margin-top: 20px;
             display: inline-block;
         }
 
-        .delete-link {
-            color: #dc3545;
-            /* 赤 */
+        .footer-link a {
+            color: #0d6efd;
+            text-decoration: none;
         }
 
-        .delete-link:hover {
-            color: #a71d2a;
+        .footer-link a:hover {
             text-decoration: underline;
         }
     </style>
@@ -75,9 +103,9 @@
 
     <h1>部署一覧</h1>
 
-    <p class="top-link">
-        <a th:href="@{/departments/new}">＋ 新規部署登録</a>
-    </p>
+    <a th:href="@{/departments/new}" class="btn btn-primary">
+        ＋ 新規部署登録
+    </a>
 
     <table>
         <tr>
@@ -90,11 +118,14 @@
             <td th:text="${dept.id}"></td>
             <td th:text="${dept.departmentName}"></td>
             <td class="action-links">
-                <a th:href="@{/departments/edit/{id}(id=${dept.id})}">編集</a>
-                <a href="javascript:void(0);" class="delete-link" th:onclick="|confirmDelete(${dept.id})|">
+                <a th:href="@{/departments/edit/{id}(id=${dept.id})}"
+                   class="btn btn-edit">編集</a>
+
+                <a href="javascript:void(0);"
+                   class="btn btn-delete"
+                   th:onclick="|confirmDelete(${dept.id})|">
                     削除
                 </a>
-
             </td>
         </tr>
     </table>
