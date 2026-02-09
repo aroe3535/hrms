@@ -68,14 +68,11 @@
         }
 
         .btn-delete {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            pointer-events: auto;
-            position: relative;
-            z-index: 1;
+            color: #555;
+            background: #fff;
+            border: 2px solid #333;
         }
+
 
 
 
@@ -90,10 +87,10 @@
 
         /* 操作ボタン横並び */
         .action-links {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
 
 
 
@@ -217,9 +214,10 @@
 
                 <a href="javascript:void(0);" class="btn btn-delete" th:onclick="|confirmDelete(${dept.id})|"
                     title="削除">
-                    🗑
+                    <i class="fa-solid fa-trash"></i>
                 </a>
-                </button>
+
+
             </td>
         </tr>
     </table>
