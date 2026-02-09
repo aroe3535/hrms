@@ -27,6 +27,7 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+            margin: 20px auto;
         }
 
         th {
@@ -38,6 +39,8 @@
         td {
             padding: 12px 14px;
             border-bottom: 1px solid var(--gray-300);
+            text-align: center;
+            vertical-align: middle;
         }
 
 
@@ -57,12 +60,20 @@
         }
 
         .btn-edit {
-            background: var(--gray-600);
+            background-color: #6c757d;
+        }
+
+        .btn-edit:hover {
+            background-color: #545b62;
         }
 
         .btn-delete {
-            background: var(--danger);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 16px;
         }
+
 
         .btn:hover {
             opacity: 0.85;
@@ -76,8 +87,10 @@
         /* 操作ボタン横並び */
         .action-links {
             display: flex;
-            gap: 8px;
+            justify-content: center;
+            gap: 10px;
         }
+
 
         /* フッター */
         .footer-link {
@@ -192,16 +205,14 @@
             <td th:text="${dept.id}"></td>
             <td th:text="${dept.departmentName}"></td>
             <td class="action-links">
-                <a th:href="@{/departments/edit/{id}(id=${dept.id})}" class="icon-btn edit" title="編集">
-                    <i class="fa-solid fa-pen"></i>
+                <a th:href="@{/departments/edit/{id}(id=${dept.id})}" class="btn btn-edit">
+                    編集
                 </a>
 
 
-                <a href="javascript:void(0);" class="icon-btn delete" th:onclick="|confirmDelete(${dept.id})|"
-                    title="削除">
-                    <i class="fa-solid fa-trash"></i>
-                </a>
-
+                <button class="btn btn-delete" th:onclick="|confirmDelete(${dept.id})|" title="削除">
+                    🗑
+                </button>
             </td>
         </tr>
     </table>
