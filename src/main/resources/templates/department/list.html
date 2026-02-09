@@ -110,6 +110,17 @@
 
     <h1>部署一覧</h1>
 
+    <div th:if="${message}" style="
+        margin-bottom:16px;
+        padding:10px 14px;
+        background-color:#e6fffa;
+        border:1px solid #b2f5ea;
+        color:#065f46;
+        border-radius:4px;
+     ">
+        <span th:text="${message}"></span>
+    </div>
+
     <a th:href="@{/departments/new}" class="btn btn-primary">
         ＋ 新規部署登録
     </a>

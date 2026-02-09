@@ -10,24 +10,27 @@ import com.example.hrms.repository.DepartmentRepository;
 @Service
 public class DepartmentService {
 
-    private final DepartmentRepository departmentRepository;
+    private final DepartmentRepository repository;
 
-    public DepartmentService(DepartmentRepository departmentRepository) {
-        this.departmentRepository = departmentRepository;
+    public DepartmentService(DepartmentRepository repository) {
+        this.repository = repository;
     }
 
-    // 部署一覧取得（論理削除除外）
     public List<Department> findAll() {
-        return departmentRepository.findByDeletedFlgFalse();
+        return repository.findByDeletedFalse();
     }
-        // 部署削除（論理削除）
-    public void delete(Long id) {
-        Department dept = departmentRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("部署が存在しません"));
 
+    public void save(Department department) {
+        repository.save(department);
+    }
+
+    public void delete(Long id) {
+        Department dept = repository.findById(id).orElseThrow();
         dept.setDeletedFlg(true);
-        departmentRepository.save(dept);
+        repository.save(dept);
     }
 }
+
+
 
 
