@@ -4,83 +4,74 @@
 <head>
     <meta charset="UTF-8">
     <title>部署一覧</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Segoe UI", "Noto Sans JP", sans-serif;
+            background-color: var(--gray-100);
             margin: 40px;
-            background-color: #f8f9fa;
         }
 
         h1 {
-            margin-bottom: 20px;
+            font-size: 26px;
+            margin-bottom: 12px;
         }
+
 
         /* ===== テーブル ===== */
         table {
-            border-collapse: collapse;
             width: 100%;
-            background-color: #fff;
-            margin-top: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            /* 影 */
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+        }
+
+        th {
+            background-color: #f1f5f9;
+            font-weight: 600;
         }
 
         th,
         td {
-            border: 1px solid #ddd;
-            padding: 10px 12px;
-            text-align: left;
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--gray-300);
         }
 
-        th {
-            background-color: #f1f3f5;
-        }
-
-        tr:nth-child(even) {
-            background-color: #fafafa;
-        }
 
         /* ===== ボタン共通 ===== */
         .btn {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 14px;
-            color: #fff;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            /* 丸い */
+            font-size: 13px;
+            font-weight: 500;
             text-decoration: none;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            border: none;
+            color: #fff;
         }
 
-        /* 新規登録 */
         .btn-primary {
-            background-color: #0d6efd;
-            margin-bottom: 16px;
+            background: var(--primary);
         }
 
-        .btn-primary:hover {
-            background-color: #0b5ed7;
-        }
-
-        /* 編集 */
         .btn-edit {
-            background-color: #6c757d;
+            background: var(--gray-600);
         }
 
-        .btn-edit:hover {
-            background-color: #545b62;
-        }
-
-        /* 削除 */
         .btn-delete {
-            background-color: #dc3545;
+            background: var(--danger);
         }
 
-        .btn-delete:hover {
-            background-color: #a71d2a;
+        .btn:hover {
+            opacity: 0.85;
         }
+
+        tr:hover {
+            background-color: #f9fafb;
+        }
+
 
         /* 操作ボタン横並び */
         .action-links {
@@ -102,13 +93,78 @@
         .footer-link a:hover {
             text-decoration: underline;
         }
+
+        :root {
+            --primary: #2563eb;
+            --danger: #dc2626;
+            --gray-100: #f8fafc;
+            --gray-300: #e5e7eb;
+            --gray-600: #4b5563;
+        }
+
+        .icon-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #fff;
+            transition: background-color 0.2s ease;
+        }
+
+        .icon-btn.delete {
+            background-color: var(--danger);
+        }
+
+        .icon-btn.delete:hover {
+            background-color: #b91c1c;
+        }
+
+        /* ===== 検索バー ===== */
+        .search-bar {
+            margin: 16px 0;
+        }
+
+        .search-bar input {
+            width: 300px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: #0d6efd;
+        }
+
+        /* ===== 検索結果件数 ===== */
+        .result-count {
+            margin-top: 8px;
+            font-size: 13px;
+            color: #555;
+        }
     </style>
+
+
 
 </head>
 
 <body>
 
     <h1>部署一覧</h1>
+
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="部署名で検索">
+    </div>
+
+    <div id="resultCount" class="result-count">
+        全件表示中
+    </div>
+
+
 
     <div th:if="${message}" style="
         margin-bottom:16px;
@@ -128,19 +184,24 @@
     <table>
         <tr>
             <th>ID</th>
-            <th>部署名</th>
+            <th onclick="sortTable()">部署名 ▲▼</th>
             <th>操作</th>
         </tr>
 
-        <tr th:each="dept : ${departments}">
+        <tr th:each="dept : ${departments}" class="dept-row">
             <td th:text="${dept.id}"></td>
             <td th:text="${dept.departmentName}"></td>
             <td class="action-links">
-                <a th:href="@{/departments/edit/{id}(id=${dept.id})}" class="btn btn-edit">編集</a>
-
-                <a href="javascript:void(0);" class="btn btn-delete" th:onclick="|confirmDelete(${dept.id})|">
-                    削除
+                <a th:href="@{/departments/edit/{id}(id=${dept.id})}" class="icon-btn edit" title="編集">
+                    <i class="fa-solid fa-pen"></i>
                 </a>
+
+
+                <a href="javascript:void(0);" class="icon-btn delete" th:onclick="|confirmDelete(${dept.id})|"
+                    title="削除">
+                    <i class="fa-solid fa-trash"></i>
+                </a>
+
             </td>
         </tr>
     </table>
@@ -150,12 +211,48 @@
     </p>
 
     <script>
-        function confirmDelete(departmentId) {
-            if (confirm('この部署を削除してもよろしいですか？')) {
-                window.location.href = '/departments/delete/' + departmentId;
-            }
+        const searchInput = document.getElementById("searchInput");
+        const rows = document.querySelectorAll(".dept-row");
+        const resultCount = document.getElementById("resultCount");
+
+        function updateCount() {
+            const visibleRows = Array.from(rows).filter(
+                row => row.style.display !== "none"
+            );
+            resultCount.textContent = `${visibleRows.length} 件表示中`;
+        }
+
+        searchInput.addEventListener("keyup", function () {
+            const keyword = this.value.toLowerCase();
+
+            rows.forEach(row => {
+                const deptName = row.children[1].innerText.toLowerCase();
+                row.style.display = deptName.includes(keyword) ? "" : "none";
+            });
+
+            updateCount();
+        });
+
+        updateCount();
+
+        let sortAsc = true;
+
+        function sortTable() {
+            const tbody = document.querySelector("table tbody") || document.querySelector("table");
+            const rowsArray = Array.from(rows);
+
+            rowsArray.sort((a, b) => {
+                const nameA = a.children[1].innerText;
+                const nameB = b.children[1].innerText;
+                return sortAsc ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+            });
+
+            sortAsc = !sortAsc;
+            rowsArray.forEach(row => tbody.appendChild(row));
         }
     </script>
+
+
 
 </body>
 

@@ -15,10 +15,10 @@
         .form-card {
             width: 420px;
             margin: auto;
-            padding: 24px;
+            padding: 28px;
             background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         }
 
         h1 {
@@ -30,13 +30,16 @@
         }
 
         input {
-            width: 100%;
-            padding: 8px;
-            margin-top: 6px;
-            margin-bottom: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            border: 1px solid var(--gray-300);
+            padding: 10px;
+            border-radius: 6px;
         }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
 
         button {
             width: 100%;
