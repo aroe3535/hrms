@@ -142,6 +142,6 @@ Render環境でDB接続エラーが発生。
 
 ## ■ デプロイ先
 
-https://hrms-2-nx71.onrender.com  
+https://hrms-production-36d1.up.railway.app/departments
 
 ※ トップページから部署一覧画面へ遷移します。
