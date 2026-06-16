@@ -13,7 +13,7 @@
 
 https://hrms-production-36d1.up.railway.app/departments
 
-※ トップページから部署一覧画面へ遷移します
+※ 現在、デプロイ先を載せ替え中のためアクセスできません。
 
 ---
 
